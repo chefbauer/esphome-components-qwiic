@@ -34,7 +34,7 @@ uint8_t QwiicTwistRGB::blue_float_to_uint8( float v ) {
 
 void QwiicTwistRGB::write_state(light::LightState *state) {
   float red, green, blue;
-  state->current_values_as_rgb(&red, &green, &blue, false);
+  state->current_values_as_rgb(&red, &green, &blue);
   
   uint8_t color_register = 0x0D; // 0x0D = Red; 0x0E = Green; 0x0F = Blue; register auto-increments
   std::array<uint8_t, 3> color_buf = { this->red_float_to_uint8(red),
