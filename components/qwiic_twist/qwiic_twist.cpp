@@ -25,6 +25,11 @@ void QwiicTwist::setup() {
     return;
   }
   ESP_LOGCONFIG(TAG, "- Qwiic Twist unique identifier is %u", bytes.id);
+
+  // Disable hardware auto-color-change on encoder turn (connect registers 0x10–0x15)
+  if( !this->write_bytes(0x10, zeros, 6) ) {
+    ESP_LOGE(TAG, "- Failed to clear connect registers on Qwiic Twist at %#2x!", this->address_);
+  }
   
   if( this->encoder_sensor_ ) {
       ESP_LOGCONFIG(TAG, "- Setting up Qwiic Twist Encoder...");
